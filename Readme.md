@@ -1,6 +1,6 @@
-# OpenSuperWhisper
+# Tech Talker
 
-OpenSuperWhisper is a macOS application that provides real-time audio transcription using the Whisper model. It offers a seamless way to record and transcribe audio with customizable settings and keyboard shortcuts.
+Tech Talker is a macOS application that provides real-time audio transcription using the Whisper model. It offers a seamless way to record and transcribe audio with customizable settings and keyboard shortcuts.
 
 <p align="center">
 <img src="docs/image.png" width="400" /> <img src="docs/image_indicator.png" width="400" />
@@ -15,10 +15,10 @@ Free alternative to paid services like:
 
 ```shell
 brew update # Optional
-brew install opensuperwhisper
+brew install techtalker
 ```
 
-Or from [github releases page](https://github.com/Starmel/OpenSuperWhisper/releases).
+Or from [github releases page](https://github.com/Starmel/TechTalker/releases).
 
 ## Features
 
@@ -28,7 +28,6 @@ Or from [github releases page](https://github.com/Starmel/OpenSuperWhisper/relea
 - 🔄 Optional translation to English (for better translation add initial prompt with english sentences)
 - 💾 Local storage of recordings with transcriptions
 - 🎛️ Advanced transcription settings (not tested)
-- 🇯🇵🇨🇳🇰🇷 Support for Asian languages with [auto-correct](https://github.com/huacnlee/autocorrect)
 
 ## Requirements
 
@@ -45,8 +44,8 @@ If you encounter any issues or have questions, please:
 
 To build locally, you'll need:
 
-    git clone git@github.com:Starmel/OpenSuperWhisper.git
-    cd OpenSuperWhisper
+    git clone git@github.com:Starmel/TechTalker.git
+    cd TechTalker
     git submodule update --init --recursive
     brew install cmake libomp rust ruby
     gem install xcpretty
@@ -61,16 +60,16 @@ Contributions are welcome! Please feel free to submit pull requests or create is
 
 ### Contribution TODO list
 
-- [ ] Streaming transcription ([#22](https://github.com/Starmel/OpenSuperWhisper/issues/22))
-- [ ] Custom dictionary ([#20](https://github.com/Starmel/OpenSuperWhisper/issues/35))
-- [ ] Intel macOS compatibility ([#16](https://github.com/Starmel/OpenSuperWhisper/issues/16))
-- [ ] Agent mode ([#14](https://github.com/Starmel/OpenSuperWhisper/issues/14))
-- [x] Background app ([#9](https://github.com/Starmel/OpenSuperWhisper/issues/9))
-- [x] Support long-press single key audio recording ([#19](https://github.com/Starmel/OpenSuperWhisper/issues/19))
+- [ ] Streaming transcription ([#22](https://github.com/Starmel/TechTalker/issues/22))
+- [ ] Custom dictionary ([#20](https://github.com/Starmel/TechTalker/issues/35))
+- [ ] Intel macOS compatibility ([#16](https://github.com/Starmel/TechTalker/issues/16))
+- [ ] Agent mode ([#14](https://github.com/Starmel/TechTalker/issues/14))
+- [x] Background app ([#9](https://github.com/Starmel/TechTalker/issues/9))
+- [x] Support long-press single key audio recording ([#19](https://github.com/Starmel/TechTalker/issues/19))
 
 ## License
 
-OpenSuperWhisper is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Tech Talker is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Whisper Models
 

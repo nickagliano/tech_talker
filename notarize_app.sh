@@ -2,10 +2,10 @@
 set -e
 
 # === Configuration Variables ===
-APP_NAME="OpenSuperWhisper"                                   
-APP_PATH="./build/Build/Products/Release/OpenSuperWhisper.app"                        
-ZIP_PATH="./build/OpenSuperWhisper.zip"                        
-BUNDLE_ID="ru.starmel.OpenSuperWhisper"                       
+APP_NAME="TechTalker"                                   
+APP_PATH="./build/Build/Products/Release/TechTalker.app"                        
+ZIP_PATH="./build/TechTalker.zip"                        
+BUNDLE_ID="ru.starmel.TechTalker"                       
 KEYCHAIN_PROFILE="Slava"
 CODE_SIGN_IDENTITY="${1}"
 DEVELOPMENT_TEAM="8LLDD7HWZK"
@@ -16,11 +16,6 @@ cmake -G Xcode -B libwhisper/build -S libwhisper
 rm -rf build
 mkdir -p build
 
-echo "Building autocorrect-swift..."
-cargo build -p autocorrect-swift --release --target aarch64-apple-darwin --manifest-path=asian-autocorrect/Cargo.toml
-cp ./asian-autocorrect/target/aarch64-apple-darwin/release/libautocorrect_swift.dylib ./build/libautocorrect_swift.dylib
-install_name_tool -id "@rpath/libautocorrect_swift.dylib" ./build/libautocorrect_swift.dylib
-codesign --force --sign "${CODE_SIGN_IDENTITY}" --timestamp ./build/libautocorrect_swift.dylib
 
 echo "Copying libomp.dylib..."
 cp /opt/homebrew/opt/libomp/lib/libomp.dylib ./build/libomp.dylib
@@ -28,7 +23,7 @@ install_name_tool -id "@rpath/libomp.dylib" ./build/libomp.dylib
 codesign --force --sign "${CODE_SIGN_IDENTITY}" --timestamp ./build/libomp.dylib
 
 xcodebuild \
-  -scheme "OpenSuperWhisper" \
+  -scheme "TechTalker" \
   -configuration Release \
   -destination "platform=macOS,arch=arm64" \
   CODE_SIGN_STYLE=Manual \

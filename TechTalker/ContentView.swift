@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  OpenSuperWhisper
+//  TechTalker
 //
 //  Created by user on 05.02.2025.
 //

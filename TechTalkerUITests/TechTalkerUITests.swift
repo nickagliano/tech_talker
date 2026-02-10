@@ -1,13 +1,13 @@
 //
-//  OpenSuperWhisperUITests.swift
-//  OpenSuperWhisperUITests
+//  TechTalkerUITests.swift
+//  TechTalkerUITests
 //
 //  Created by user on 05.02.2025.
 //
 
 import XCTest
 
-final class OpenSuperWhisperUITests: XCTestCase {
+final class TechTalkerUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

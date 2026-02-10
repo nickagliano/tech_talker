@@ -7,10 +7,10 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>14.0</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>OpenSuperWhisper needs microphone access to record audio for transcription.</string>
+	<string>Tech Talker needs microphone access to record audio for transcription.</string>
 	<key>NSAccessibilityUsageDescription</key>
-	<string>OpenSuperWhisper needs accessibility access to provide system-wide functionality.</string>
+	<string>Tech Talker needs accessibility access to provide system-wide functionality.</string>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>OpenSuperWhisper needs accessibility access to provide system-wide functionality.</string>
+	<string>Tech Talker needs accessibility access to provide system-wide functionality.</string>
 </dict>
 </plist>

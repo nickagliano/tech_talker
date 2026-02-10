@@ -10,7 +10,7 @@ struct DevConfig {
         let filePath = (
             URL(fileURLWithPath: #filePath)
                 .deletingLastPathComponent() // Utils
-                .deletingLastPathComponent() // OpenSuperWhisper
+                .deletingLastPathComponent() // TechTalker
                 .deletingLastPathComponent() // project root
                 .appendingPathComponent("dev_config.json")
         ).path

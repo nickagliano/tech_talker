@@ -1,6 +1,6 @@
 //
 //  FocusUtils.swift
-//  OpenSuperWhisper
+//  TechTalker
 //
 //  Created by user on 07.02.2025.
 //
@@ -20,10 +20,10 @@ class FocusUtils {
     }
     
     static func getCaretRect() -> CGRect? {
-        // Получаем системный элемент для доступа ко всему UI
+        // Get the system element for accessing the entire UI
         let systemElement = AXUIElementCreateSystemWide()
         
-        // Получаем фокусированный элемент
+        // Get the focused element
         var focusedElement: CFTypeRef? // Keep as CFTypeRef? if you prefer
         let errorFocused = AXUIElementCopyAttributeValue(systemElement,
                                                          kAXFocusedUIElementAttribute as CFString,
@@ -31,17 +31,17 @@ class FocusUtils {
         
         print("errorFocused: \(errorFocused)")
         guard errorFocused == .success else {
-            print("Не удалось получить фокусированный элемент")
+            print("Failed to get focused element")
             return nil
         }
         
         guard let focusedElementCF = focusedElement else { // Optional binding to safely unwrap CFTypeRef
-            print("Не удалось получить фокусированный элемент (CFTypeRef is nil)") // Extra safety check, though unlikely
+            print("Failed to get focused element (CFTypeRef is nil)") // Extra safety check, though unlikely
             return nil
         }
         
         let element = focusedElementCF as! AXUIElement
-        // Получаем выделенный текстовый диапазон у фокусированного элемента
+        // Get the selected text range from the focused element
         var selectedTextRange: AnyObject?
         let errorRange = AXUIElementCopyAttributeValue(element,
                                                        kAXSelectedTextRangeAttribute as CFString,
@@ -49,11 +49,11 @@ class FocusUtils {
         guard errorRange == .success,
               let textRange = selectedTextRange
         else {
-            print("Не удалось получить диапазон выделенного текста")
+            print("Failed to get selected text range")
             return nil
         }
         
-        // Используем параметризованный атрибут для получения границ диапазона (положение каретки)
+        // Use parameterized attribute to get range bounds (caret position)
         var caretBounds: CFTypeRef?
         let errorBounds = AXUIElementCopyParameterizedAttributeValue(element,
                                                                      kAXBoundsForRangeParameterizedAttribute as CFString,
@@ -62,7 +62,7 @@ class FocusUtils {
         
         print("errorbounds: \(errorBounds), caretBounds \(String(describing: caretBounds))")
         guard errorBounds == .success else {
-            print("Не удалось получить границы каретки")
+            print("Failed to get caret bounds")
             return nil
         }
         
@@ -102,7 +102,7 @@ class FocusUtils {
                                                    &focusedWindow)
         
         guard result == .success else {
-            print("Не удалось получить сфокусированное окно")
+            print("Failed to get focused window")
             return NSScreen.main
         }
         let windowElement = focusedWindow as! AXUIElement
@@ -114,14 +114,14 @@ class FocusUtils {
                                                         &windowFrameValue)
         
         guard frameResult == .success else {
-            print("Не удалось получить фрейм окна")
+            print("Failed to get window frame")
             return NSScreen.main
         }
         let frameValue = windowFrameValue as! AXValue
         
         var windowFrame = CGRect.zero
         guard AXValueGetValue(frameValue, AXValueType.cgRect, &windowFrame) else {
-            print("Не удалось извлечь CGRect из AXValue")
+            print("Failed to extract CGRect from AXValue")
             return NSScreen.main
         }
         
