@@ -327,7 +327,7 @@ struct OnboardingView: View {
                         .fontWeight(.medium)
                         .foregroundColor(.secondary)
                     
-                    Text("Tech Talker")
+                    Text("TechTalker")
                         .font(.system(size: 32, weight: .bold))
                         .foregroundStyle(
                             .white

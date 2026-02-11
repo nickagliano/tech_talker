@@ -1,6 +1,14 @@
-# Tech Talker
+# TechTalker
 
-Tech Talker is a macOS application that provides real-time audio transcription using the Whisper model. It offers a seamless way to record and transcribe audio with customizable settings and keyboard shortcuts.
+> **⚠️ Disclaimer**: This project is for my own personal use only and is provided as-is. It may break at any moment without warning, security is not guaranteed, and no support is provided. Use at your own risk.
+
+## Acknowledgments
+
+This project is forked from [OpenSuperWhisper](https://github.com/starmel/OpenSuperWhisper) by [@starmel](https://github.com/starmel). I extend sincere gratitude for the excellent foundation and original work. This fork was created to conduct experimental modifications without affecting the stability of the original project. All credit for the core functionality and initial implementation goes to the original author(s).
+
+## About
+
+TechTalker is a macOS application that provides real-time audio transcription using the Whisper model. It offers a seamless way to record and transcribe audio with customizable settings and keyboard shortcuts.
 
 <p align="center">
 <img src="docs/image.png" width="400" /> <img src="docs/image_indicator.png" width="400" />
@@ -13,12 +21,7 @@ Free alternative to paid services like:
 
 ## Installation
 
-```shell
-brew update # Optional
-brew install techtalker
-```
-
-Or from [github releases page](https://github.com/Starmel/TechTalker/releases).
+See "building locally" instructions. I don't currently have a way to build from a GitHub release or from a manager like homebrew.
 
 ## Features
 
@@ -33,19 +36,12 @@ Or from [github releases page](https://github.com/Starmel/TechTalker/releases).
 
 - macOS (Apple Silicon/ARM64)
 
-## Support
-
-If you encounter any issues or have questions, please:
-1. Check the existing issues in the repository
-2. Create a new issue with detailed information about your problem
-3. Include system information and logs when reporting bugs
-
 # Building locally
 
 To build locally, you'll need:
 
-    git clone git@github.com:Starmel/TechTalker.git
-    cd TechTalker
+    git clone git@github.com:nickagliano/tech_talker.git
+    cd tech_talker
     git submodule update --init --recursive
     brew install cmake libomp rust ruby
     gem install xcpretty
@@ -58,18 +54,9 @@ where the app gets built automatically on GitHub's CI.
 
 Contributions are welcome! Please feel free to submit pull requests or create issues for bugs and feature requests.
 
-### Contribution TODO list
-
-- [ ] Streaming transcription ([#22](https://github.com/Starmel/TechTalker/issues/22))
-- [ ] Custom dictionary ([#20](https://github.com/Starmel/TechTalker/issues/35))
-- [ ] Intel macOS compatibility ([#16](https://github.com/Starmel/TechTalker/issues/16))
-- [ ] Agent mode ([#14](https://github.com/Starmel/TechTalker/issues/14))
-- [x] Background app ([#9](https://github.com/Starmel/TechTalker/issues/9))
-- [x] Support long-press single key audio recording ([#19](https://github.com/Starmel/TechTalker/issues/19))
-
 ## License
 
-Tech Talker is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+TechTalker is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Whisper Models
 
