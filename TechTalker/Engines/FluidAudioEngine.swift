@@ -89,6 +89,9 @@ class FluidAudioEngine: TranscriptionEngine {
             processedText = AutocorrectWrapper.format(processedText)
         }
         
+        // Process voice commands for markdown formatting
+        processedText = VoiceCommandProcessor.processVoiceCommands(processedText)
+        
         onProgressUpdate?(1.0)
         
         return processedText.isEmpty ? "No speech detected in the audio" : processedText

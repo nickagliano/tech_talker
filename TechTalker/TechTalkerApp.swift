@@ -41,6 +41,7 @@ struct TechTalkerApp: App {
         _ = ShortcutManager.shared
         _ = MicrophoneService.shared
         WhisperModelManager.shared.ensureDefaultModelPresent()
+        VoiceCommandProcessor.loadCommands()
     }
 }
 

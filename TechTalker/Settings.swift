@@ -517,6 +517,10 @@ struct SettingsView: View {
     @State private var isRecordingNewShortcut = false
     @State private var selectedTab = 0
     @State private var previousModelURL: URL?
+    @State private var voiceCommands: [String: String] = [:]
+    @State private var newCommandName = ""
+    @State private var newCommandReplacement = ""
+    @State private var showingAddCommand = false
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -540,13 +544,20 @@ struct SettingsView: View {
                     Label("Transcription", systemImage: "text.bubble")
                 }
                 .tag(2)
+                
+            // Voice Commands Settings
+            voiceCommandsSettings
+                .tabItem {
+                    Label("Voice Commands", systemImage: "mic.badge.plus")
+                }
+                .tag(3)
             
             // Advanced Settings
             advancedSettings
                 .tabItem {
                     Label("Advanced", systemImage: "gear")
                 }
-                .tag(3)
+                .tag(4)
             }
         .padding()
         .frame(width: 550)
@@ -585,6 +596,7 @@ struct SettingsView: View {
             if viewModel.selectedEngine == "fluidaudio" {
                 viewModel.initializeFluidAudioModels()
             }
+            loadVoiceCommands()
         }
         .onChange(of: viewModel.selectedEngine) { _, newEngine in
             if newEngine == "fluidaudio" {
@@ -1439,3 +1451,170 @@ struct ModelDownloadItemView: View {
     }
 }
 
+
+extension SettingsView {
+    var voiceCommandsSettings: some View {
+        Form {
+            VStack(spacing: 20) {
+                // Voice Commands List
+                VStack(alignment: .leading, spacing: 16) {
+                    HStack {
+                        Text("Voice Commands")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            newCommandName = ""
+                            newCommandReplacement = ""
+                            showingAddCommand = true
+                        }) {
+                            Label("Add Command", systemImage: "plus")
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .controlSize(.small)
+                    }
+                    
+                    ScrollView {
+                        VStack(spacing: 8) {
+                            ForEach(Array(voiceCommands.keys).sorted(), id: \.self) { command in
+                                VoiceCommandRowView(
+                                    command: command,
+                                    description: voiceCommands[command] ?? "",
+                                    onDelete: {
+                                        removeVoiceCommand(command)
+                                    }
+                                )
+                            }
+                        }
+                    }
+                    .frame(maxHeight: 300)
+                    
+                    Text("Say these commands while dictating to format your text. For example, say \"backtick my code backtick\" to get `my code`.")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .padding(.top, 8)
+                }
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(.controlBackgroundColor).opacity(0.3))
+                .cornerRadius(12)
+            }
+            .padding()
+        }
+        .sheet(isPresented: $showingAddCommand) {
+            AddVoiceCommandView(
+                commandName: $newCommandName,
+                commandReplacement: $newCommandReplacement,
+                onSave: { name, replacement in
+                    addVoiceCommand(name: name, replacement: replacement)
+                    showingAddCommand = false
+                },
+                onCancel: {
+                    showingAddCommand = false
+                }
+            )
+        }
+    }
+    
+    func loadVoiceCommands() {
+        VoiceCommandProcessor.loadCommands()
+        voiceCommands = VoiceCommandProcessor.getAllCommands()
+    }
+    
+    func addVoiceCommand(name: String, replacement: String) {
+        VoiceCommandProcessor.addSimpleCommand(name, replacement: replacement)
+        loadVoiceCommands()
+    }
+    
+    func removeVoiceCommand(_ command: String) {
+        VoiceCommandProcessor.removeCommand(command)
+        loadVoiceCommands()
+    }
+}
+
+struct VoiceCommandRowView: View {
+    let command: String
+    let description: String
+    let onDelete: () -> Void
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(command)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                
+                Text(description)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+            
+            Button(action: onDelete) {
+                Image(systemName: "trash")
+                    .foregroundColor(.red)
+            }
+            .buttonStyle(.borderless)
+            .help("Delete command")
+        }
+        .padding(12)
+        .background(Color(.controlBackgroundColor).opacity(0.5))
+        .cornerRadius(8)
+    }
+}
+
+struct AddVoiceCommandView: View {
+    @Binding var commandName: String
+    @Binding var commandReplacement: String
+    let onSave: (String, String) -> Void
+    let onCancel: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Add Voice Command")
+                .font(.headline)
+                .padding(.top)
+            
+            VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Command Name")
+                        .font(.subheadline)
+                    TextField("e.g., new line", text: $commandName)
+                        .textFieldStyle(.roundedBorder)
+                }
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Replacement Text")
+                        .font(.subheadline)
+                    TextField("e.g., \\n", text: $commandReplacement)
+                        .textFieldStyle(.roundedBorder)
+                }
+                
+                Text("When you say \"\(commandName.isEmpty ? "command name" : commandName)\", it will be replaced with \"\(commandReplacement.isEmpty ? "replacement text" : commandReplacement.replacingOccurrences(of: "\n", with: "\\n"))\".")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .padding(.top, 8)
+            }
+            
+            HStack {
+                Button("Cancel", action: onCancel)
+                    .buttonStyle(.bordered)
+                
+                Spacer()
+                
+                Button("Save") {
+                    onSave(commandName, commandReplacement)
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(commandName.isEmpty || commandReplacement.isEmpty)
+            }
+            
+            Spacer()
+        }
+        .padding()
+        .frame(width: 400, height: 300)
+    }
+}

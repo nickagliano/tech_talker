@@ -203,6 +203,9 @@ class WhisperEngine: TranscriptionEngine {
             processedText = AutocorrectWrapper.format(cleanedText)
         }
         
+        // Process voice commands for markdown formatting
+        processedText = VoiceCommandProcessor.processVoiceCommands(processedText)
+        
         return processedText.isEmpty ? "No speech detected in the audio" : processedText
     }
     
