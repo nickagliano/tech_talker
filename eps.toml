@@ -1,0 +1,12 @@
+[package]
+name        = "tech_talker"
+version     = "0.1.0"
+description = "macOS audio transcription harness — global shortcut, Whisper/FluidAudio engines, voice command processor"
+authors     = ["nickagliano"]
+license     = "MIT"
+repository  = "https://github.com/nickagliano/tech_talker"
+platform    = ["aarch64-apple-darwin"]
+
+[system-dependencies]
+brew = ["cmake", "libomp", "rust", "ruby"]
+gem  = ["xcpretty"]
